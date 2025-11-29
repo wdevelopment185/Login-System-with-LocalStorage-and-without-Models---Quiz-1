@@ -8,6 +8,26 @@ import {
 } from 'recharts';
 import { useAuth } from '../contexts/AuthContext';
 import HealthBadge from '../components/HealthBadge';
+import {
+  BookOpen,
+  BarChart3,
+  FileText,
+  Upload,
+  Package,
+  Bell,
+  Folder,
+  User,
+  Settings,
+  Search,
+  TrendingUp,
+  HardDrive,
+  ClipboardList,
+  Home,
+  Car,
+  Briefcase,
+  Zap,
+  Lightbulb
+} from 'lucide-react';
 
 // Mock data for charts
 const uploadTrendData = [
@@ -38,39 +58,39 @@ const activityData = [
 const recentDocs = [
   { 
     id: 1,
-    title: '📄 Financial Report Q3 2024', 
+    title: 'Financial Report Q3 2024', 
     meta: 'Uploaded 2 hours ago', 
     status: 'Processing',
     type: 'PDF',
     size: '2.4 MB',
-    icon: '📊'
+    icon: BarChart3
   },
   { 
     id: 2,
-    title: '🏠 Property Insurance Policy', 
+    title: 'Property Insurance Policy', 
     meta: 'Uploaded 1 day ago', 
     status: 'Active',
     type: 'PDF',
     size: '1.8 MB',
-    icon: '🏡'
+    icon: Home
   },
   { 
     id: 3,
-    title: '🚗 Vehicle Registration', 
+    title: 'Vehicle Registration', 
     meta: 'Uploaded 3 days ago', 
     status: 'Active',
     type: 'Image',
     size: '856 KB',
-    icon: '🚙'
+    icon: Car
   },
   { 
     id: 4,
-    title: '💼 Employment Contract', 
+    title: 'Employment Contract', 
     meta: 'Uploaded 1 week ago', 
     status: 'Archived',
     type: 'DOCX',
     size: '324 KB',
-    icon: '📝'
+    icon: Briefcase
   }
 ];
 
@@ -147,7 +167,9 @@ const Dashboard = () => {
         >
           <div className="flex items-center space-x-3 mb-8">
             <div className="h-12 w-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
-              📚
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
             </div>
             <div>
               <div className="text-lg font-bold text-gray-900">Document Optimizer</div>
@@ -162,14 +184,14 @@ const Dashboard = () => {
           <nav>
             <ul className="space-y-2">
               {[
-                { icon: '📊', label: 'Dashboard', active: true },
-                { icon: '📄', label: 'Documents' },
-                { icon: '⬆️', label: 'Upload' },
-                { icon: '📦', label: 'Bulk Upload' },
-                { icon: '🔔', label: 'Alerts' },
-                { icon: '📁', label: 'Folders' },
-                { icon: '👤', label: 'Profile' },
-                { icon: '⚙️', label: 'Settings' }
+                { icon: BarChart3, label: 'Dashboard', active: true },
+                { icon: FileText, label: 'Documents' },
+                { icon: Upload, label: 'Upload' },
+                { icon: Package, label: 'Bulk Upload' },
+                { icon: Bell, label: 'Alerts' },
+                { icon: Folder, label: 'Folders' },
+                { icon: User, label: 'Profile' },
+                { icon: Settings, label: 'Settings' }
               ].map((item, index) => (
                 <motion.li
                   key={item.label}
@@ -185,7 +207,7 @@ const Dashboard = () => {
                         : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
                     }`}
                   >
-                    <span className="text-lg">{item.icon}</span>
+                    <item.icon className="h-5 w-5" />
                     {item.label}
                   </Link>
                 </motion.li>
@@ -205,7 +227,7 @@ const Dashboard = () => {
               <div className="flex items-center gap-4">
                 <div>
                   <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Welcome back, {user?.name || 'User'}! 👋
+                    Welcome back, {user?.name || 'User'}!
                   </h1>
                   <p className="text-gray-600 mt-1">Here's your document management overview</p>
                 </div>
@@ -213,18 +235,24 @@ const Dashboard = () => {
 
               <div className="flex items-center gap-4">
                 <div className="hidden sm:block relative">
-                  <input 
-                    type="text" 
-                    placeholder="🔍 Search documents..." 
-                    className="border border-gray-200 rounded-xl py-3 px-4 w-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 transition-all"
-                  />
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Search className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input 
+                      type="text" 
+                      placeholder="Search documents..." 
+                      className="border border-gray-200 rounded-xl py-3 pl-10 pr-4 w-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 transition-all"
+                    />
+                  </div>
                 </div>
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-200 font-medium"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-200 font-medium flex items-center gap-2"
                 >
-                  📤 Upload
+                  <Upload className="h-5 w-5" />
+                  Upload
                 </motion.button>
                 <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg">
                   {user?.name?.charAt(0) || 'U'}
@@ -246,28 +274,28 @@ const Dashboard = () => {
                   label: 'Total Documents', 
                   value: stats.totalDocs, 
                   change: '+12%', 
-                  icon: '📄',
+                  icon: FileText,
                   color: 'from-blue-500 to-blue-600'
                 },
                 { 
                   label: 'Storage Used', 
                   value: `${stats.storageUsed.toFixed(1)} GB`, 
                   change: '+2.1 GB', 
-                  icon: '💾',
+                  icon: HardDrive,
                   color: 'from-green-500 to-green-600'
                 },
                 { 
                   label: 'Active Alerts', 
                   value: stats.activeAlerts, 
                   change: stats.activeAlerts > 0 ? 'Needs attention' : 'All clear', 
-                  icon: '🔔',
+                  icon: Bell,
                   color: 'from-yellow-500 to-orange-500'
                 },
                 { 
                   label: 'Monthly Uploads', 
                   value: stats.monthlyUploads, 
                   change: '+8 this week', 
-                  icon: '⬆️',
+                  icon: Upload,
                   color: 'from-purple-500 to-purple-600'
                 }
               ].map((stat, index) => (
@@ -279,7 +307,7 @@ const Dashboard = () => {
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className={`h-12 w-12 rounded-xl bg-gradient-to-r ${stat.color} flex items-center justify-center text-white text-xl shadow-lg`}>
-                      {stat.icon}
+                      <stat.icon className="h-6 w-6" />
                     </div>
                     <div className="text-right">
                       <p className="text-2xl font-bold text-gray-900">
@@ -307,7 +335,8 @@ const Dashboard = () => {
                 className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100"
               >
                 <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  📈 Upload Trends
+                  <TrendingUp className="h-6 w-6" />
+                  Upload Trends
                 </h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <AreaChart data={uploadTrendData}>
@@ -348,7 +377,8 @@ const Dashboard = () => {
                 className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100"
               >
                 <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  📊 Document Types
+                  <BarChart3 className="h-6 w-6" />
+                  Document Types
                 </h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
@@ -390,7 +420,8 @@ const Dashboard = () => {
               >
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                    📋 Recent Documents
+                    <ClipboardList className="h-6 w-6" />
+                    Recent Documents
                   </h3>
                   <Link to="#" className="text-blue-600 hover:text-blue-700 font-medium transition-colors">
                     View all →
@@ -408,7 +439,7 @@ const Dashboard = () => {
                     >
                       <div className="flex items-center gap-4">
                         <div className="h-12 w-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white text-xl shadow-lg">
-                          {doc.icon}
+                          <doc.icon className="h-6 w-6" />
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900">{doc.title}</p>
@@ -440,7 +471,8 @@ const Dashboard = () => {
                 className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100"
               >
                 <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  ⚡ Daily Activity
+                  <Zap className="h-6 w-6" />
+                  Daily Activity
                 </h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={activityData}>
@@ -472,7 +504,10 @@ const Dashboard = () => {
 
                 <div className="mt-6 space-y-3">
                   <div className="flex items-center justify-between p-3 bg-blue-50 rounded-xl">
-                    <span className="text-sm font-medium text-blue-900">💡 Quick Tip</span>
+                    <span className="text-sm font-medium text-blue-900 flex items-center gap-2">
+                      <Lightbulb className="h-4 w-4" />
+                      Quick Tip
+                    </span>
                   </div>
                   <p className="text-sm text-gray-600">
                     Peak activity is between 12-16h. Consider scheduling bulk operations during off-peak hours.
