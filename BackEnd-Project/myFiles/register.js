@@ -27,9 +27,14 @@ router.post('/register', registrationValidators, async (req, res) => {
   try {
     const { firstName, lastName, email, password, country, agreeToTerms } = req.body;
 
+    console.log('📝 Registration attempt:', { firstName, lastName, email });
+
     // check existing user
     const existing = await User.findOne({ email });
-    if (existing) return res.status(409).json({ message: 'Email already registered' });
+    if (existing) {
+      console.warn('⚠️ Email already registered:', email);
+      return res.status(409).json({ message: 'Email already registered' });
+    }
 
     // hash password
     const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 12;
@@ -45,6 +50,7 @@ router.post('/register', registrationValidators, async (req, res) => {
     });
 
     await user.save();
+    console.log('✅ User saved successfully:', user._id);
 
     // generate JWT token
     const jwtSecret = process.env.JWT_SECRET || 'dev-secret';
@@ -57,10 +63,12 @@ router.post('/register', registrationValidators, async (req, res) => {
     };
     const token = jwt.sign(tokenPayload, jwtSecret, { expiresIn: jwtExpiresIn });
 
+    console.log('🔐 JWT token generated');
     return res.status(201).json({ message: 'User registered', token });
   } catch (err) {
-    console.error('Registration error:', err);
-    return res.status(500).json({ message: 'Server error' });
+    console.error('❌ Registration error:', err.message);
+    console.error('Stack:', err.stack);
+    return res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
 

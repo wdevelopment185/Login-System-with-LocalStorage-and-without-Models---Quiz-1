@@ -1,8 +1,9 @@
 require('dotenv').config();
 const myMongoose = require('mongoose');
 
-// Use environment variable for MongoDB URI
-const mongoURL = process.env.MONGODB_URI || 'mongodb://localhost:27017/document_optimizer';
+// Use environment variable for MongoDB URI.
+// Support both MONGO_URI (used by tests / some docs) and MONGODB_URI (used in .env.example)
+const mongoURL = process.env.MONGO_URI || process.env.MONGODB_URI || process.env.MONGODB_TEST_URI || 'mongodb://localhost:27017/document_optimizer';
 
 // Creating a function to connect to MongoDB
 const connectToMongo = async () => {

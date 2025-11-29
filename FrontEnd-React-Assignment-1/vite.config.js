@@ -7,10 +7,11 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    // during dev forward API calls to backend running on port 5000
+    // During dev, proxy API calls to backend running on port 5000
     proxy: {
       '/api': 'http://localhost:5000',
       '/health': 'http://localhost:5000'
-    }
+    },
+    port: 3000  // Run on port 3000 (matches CORS setting in backend)
   }
 })
